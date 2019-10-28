@@ -1,0 +1,11 @@
+(define (cont-frac n d k)
+  (define (recur n d k curr)
+      (if (= curr k)
+          (/ (n k) (d k))
+          (/ (n curr) (+ (d curr) (recur n d k (+ curr 1))))))
+  (recur n d k 1))
+
+(define (check k)
+  (cont-frac (lambda (x) 1.0)
+             (lambda (x) 1.0)
+             k))
