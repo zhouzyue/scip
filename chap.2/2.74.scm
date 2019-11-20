@@ -1,0 +1,25 @@
+(define (get-record file name)
+  (tag (type-tag file)
+       ((get 'get-record (type-tag file)) file name)))
+
+(define (get-salary record)
+  ((get 'get-salary (type-tag record)) record))
+
+(define (find-employee-record name files)
+  (if (null? files)
+      '()
+      (let ((record (get-record (car files) name)))
+        (if (null? record)
+            (find-employee-record name (cdr files))
+            (cons (get-salary record)
+                  (find-employee-record name (cdr files)))))))
+
+(define (install-new-company)
+  (define (get-record file name)
+    1)
+  (define (get-salary record)
+    1)
+  
+  (put 'get-record 'company-name get-record)
+  (put 'get-salary 'company-name get-salary)
+  'done)

@@ -34,5 +34,5 @@
 (define (make-exponentiation base exponent)
   (cond ((and (number? exponent) (= exponent 0)) 1)
         ((and (number? exponent) (= exponent 1)) base)
-        (list '** base exponent)))
+        (else (list '** base exponent))))
 
