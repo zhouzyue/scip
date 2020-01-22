@@ -1,0 +1,17 @@
+(define (make-cycle x)
+  (set-cdr! (last-pair x) x)
+  x)
+
+
+(define (cycle? x)
+  (let ((counted '()))
+    (define (counted? x c)
+      (cond ((null? c) false)
+            ((eq? x (car c)) true)
+            (else (counted? x (cdr c)))))
+    (define (iter x)
+      (cond ((not (pair? x)) false)
+            ((counted? x counted) true)
+            (else (begin (set! counted (cons x counted))
+                         (iter (cdr x))))))
+    (iter x)))

@@ -1,0 +1,22 @@
+(define (make-table same-key?)
+  (let ((table (list '*table*)))
+    (define (lookup key)
+      (let ((record (assoc key (cdr table))))
+        (if record
+            (cdr record)
+            false)))
+    (define (assoc key records)
+      (cond ((null? records) false)
+            ((same-key? key (caar records)) (car records))
+            (else (assoc key (cdr records)))))
+    (define (insert! key value)
+      (let ((record (assoc key (cdr table))))
+        (if record
+            (set-cdr! record values)
+            (set-cdr! table
+                      (cons (cons key value) (cdr table)))))
+      'ok)
+    (define (dispatch m)
+      (cond ((eq? m 'insert) insert!)
+            ((eq? m 'lookup) lookup)))
+    dispatch))

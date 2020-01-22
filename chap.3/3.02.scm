@@ -1,0 +1,7 @@
+(define (make-monitored fn)
+  (let ((counter 0))
+    (lambda (input)
+      (cond ((equal? input 'how-many-calls?) counter)
+            ((equal? input 'reset-count) (set! counter 0))
+            (else (begin (set! counter (+ counter 1))
+                         (fn input)))))))

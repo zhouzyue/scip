@@ -1,0 +1,10 @@
+(define (cycle? x)
+  (define (race slow fast)
+    (cond ((eq? slow fast) true)
+          ((not (pair? fast)) false)
+          ((not (pair? (cdr fast))) false)
+          (else (race (cdr slow)
+                      (cdr (cdr fast))))))
+  (if (not (pair? x))
+      false
+      (race x (cdr x))))
